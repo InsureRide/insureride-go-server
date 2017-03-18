@@ -71,7 +71,7 @@ func (c *CarController) GetDriveByCar() {
 func (c *CarController) Post() {
 
 	carId := c.Ctx.Input.Param(":carId")
-
+	beego.Info(c.Ctx.Input.RequestBody)
 	carObj := models.Car{}
 	carObj.ContractAddress = carId
 	car, _ := ethereum.GetCar(&carObj)
