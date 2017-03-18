@@ -1,0 +1,251 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "beego Test API",
+        "description": "beego has a very cool tools to autogenerate documents for your API",
+        "version": "1.0.0",
+        "termsOfService": "http://beego.me/",
+        "contact": {
+            "email": "astaxie@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "basePath": "/v1",
+    "paths": {
+        "/car/{carId}/drive": {
+            "get": {
+                "tags": [
+                    "car"
+                ],
+                "description": "find object by carId",
+                "operationId": "CarController.Get drives by car",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "objectId",
+                        "description": "the objectid you want to get",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.Car"
+                        }
+                    },
+                    "403": {
+                        "description": ":carId is empty"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "car"
+                ],
+                "description": "create object",
+                "operationId": "CarController.Create",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "The object content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Drive"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} models.Drive.Id"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/car/{userId}": {
+            "get": {
+                "tags": [
+                    "car"
+                ],
+                "description": "find object by userId",
+                "operationId": "CarController.Get Car by UserId",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "objectId",
+                        "description": "the objectid you want to get",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.Car"
+                        }
+                    },
+                    "403": {
+                        "description": ":carId is empty"
+                    }
+                }
+            }
+        },
+        "/user/": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "get all Users",
+                "operationId": "UserController.GetAll",
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{uid}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "get user by uid",
+                "operationId": "UserController.Get",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "uid",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "403": {
+                        "description": ":uid is empty"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Car": {
+            "title": "Car",
+            "type": "object",
+            "properties": {
+                "Brand": {
+                    "type": "string"
+                },
+                "ContractAddress": {
+                    "type": "string"
+                },
+                "Drives": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Drive"
+                    }
+                },
+                "Model": {
+                    "type": "string"
+                },
+                "Vehiclenumber": {
+                    "type": "string"
+                },
+                "Year": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "models.Drive": {
+            "title": "Drive",
+            "type": "object",
+            "properties": {
+                "Avgspeed": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "ContractAddress": {
+                    "type": "string"
+                },
+                "Endtime": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Kilometers": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Starttime": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "models.Profile": {
+            "title": "Profile",
+            "type": "object",
+            "properties": {
+                "Address": {
+                    "type": "string"
+                },
+                "Age": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "Gender": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.User": {
+            "title": "User",
+            "type": "object",
+            "properties": {
+                "CarAddress": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Password": {
+                    "type": "string"
+                },
+                "Profile": {
+                    "$ref": "#/definitions/models.Profile"
+                },
+                "Username": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "user",
+            "description": "Operations about Users\n"
+        },
+        {
+            "name": "car",
+            "description": "Operations about object\n"
+        }
+    ]
+}
