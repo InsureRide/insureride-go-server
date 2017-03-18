@@ -26,8 +26,10 @@ func Init() {
 		dataDir = dataDir + "testnet/"
 	}
 
+	ipcfile := dataDir + "geth.ipc"
+
 	// Create an IPC based RPC connection to a remote node
-	client, err := ethclient.Dial("/Users/moritzschneider/Library/Ethereum/testnet/geth.ipc")
+	client, err := ethclient.Dial(ipcfile)
 	if err != nil {
 		beego.Critical("Failed to connect to the Ethereum client: ", err)
 	}
