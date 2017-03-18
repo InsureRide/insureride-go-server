@@ -11,23 +11,26 @@ var (
 
 func init() {
 	UserList = make(map[int]*User)
-	u := User{1, "astaxie", "11111", Profile{"male", 25, "Gøteborg", "volvofan@gmail.com"}, beego.AppConfig.String("demoCarAddress")}
+	u := User{1, "tonystark", Profile{ "Stark", "Tony", 9.8, "male", 25, "Gøteborg", "tony@starkindustires.com", "+41 79 700 88 00"}, beego.AppConfig.String("demoCarAddress")}
 	UserList[u.Id] = &u
 }
 
 type User struct {
 	Id       int
 	Username string
-	Password string
 	Profile  Profile
 	CarAddress string
 }
 
 type Profile struct {
+	Lastname	string
+	Prename string
+	Rating float32
 	Gender  string
 	Age     int
 	Address string
 	Email   string
+	Phone string
 }
 
 

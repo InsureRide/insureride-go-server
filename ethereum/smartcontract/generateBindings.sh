@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Navigate to Project directory
-cd $GOPATH/src/github.com/scmo/starthack
+cd $GOPATH/src/github.com/scmo/insureride-go-server
 
 # Remove old files
 rm ./ethereum/smartcontract/*.go

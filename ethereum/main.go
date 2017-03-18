@@ -106,15 +106,17 @@ func GetDrive(drive *models.Drive) (*models.Drive, error) {
 		beego.Critical("Failed to instantiate a Token contract: %v", err)
 	}
 	session := getContractDriveSession(contractDrive)
-	drive.Kilometers, _ = session.Kilometers()
-	drive.Avgspeed, _ = session.Avgspeed()
+	drive.Kilometers, _ = string2Float64(session.Kilometers())
+	drive.Avgaccel, _ = string2Float64(session.Avgaccel())
+	drive.Avgspeed, _ = string2Float64(session.Avgspeed())
 	_ = session
 	return drive, err
 }
 
+
 // Deploys a drive contract to the blockchain
 func AddDrive(d models.Drive) (models.Drive, error) {
-	address, tx, _, err := smartcontract.DeployContractDrive(ethereumController.Auth, ethereumController.Client, d.Kilometers, d.Avgspeed, d.Starttime, d.Endtime)
+	address, tx, _, err := smartcontract.DeployContractDrive(ethereumController.Auth, ethereumController.Client, float64ToString(d.Kilometers), float64ToString(d.Avgspeed), float64ToString(d.Avgaccel), d.Starttime, d.Endtime)
 	if err != nil {
 		beego.Critical("Failed to deploy new token contract: ", err)
 	}
@@ -136,4 +138,16 @@ func AddDriveToCar(carContractAddress string, driveContractAddress string){
 		beego.Critical(err)
 	}
 	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
+}
+
+func float64ToString(f float64) (string) {
+	return strconv.FormatFloat(f, 'f', 6, 64)
+}
+
+func string2Float64(s string, err error) (float64, error) {
+	f, err := strconv.ParseFloat(s, 64)
+	if(err != nil) {
+		beego.Error(err)
+	}
+	return f, err
 }

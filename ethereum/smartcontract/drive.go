@@ -13,18 +13,18 @@ import (
 )
 
 // ContractDriveABI is the input ABI used to generate the binding from.
-const ContractDriveABI = "[{\"constant\":true,\"inputs\":[],\"name\":\"kilometers\",\"outputs\":[{\"name\":\"\",\"type\":\"uint64\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"endtime\",\"outputs\":[{\"name\":\"\",\"type\":\"uint32\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"kill\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"avgspeed\",\"outputs\":[{\"name\":\"\",\"type\":\"uint16\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"starttime\",\"outputs\":[{\"name\":\"\",\"type\":\"uint32\"}],\"payable\":false,\"type\":\"function\"},{\"inputs\":[{\"name\":\"_kilometers\",\"type\":\"uint64\"},{\"name\":\"_avgspeed\",\"type\":\"uint16\"},{\"name\":\"_starttime\",\"type\":\"uint32\"},{\"name\":\"_endtime\",\"type\":\"uint32\"}],\"payable\":false,\"type\":\"constructor\"}]"
+const ContractDriveABI = "[{\"constant\":true,\"inputs\":[],\"name\":\"kilometers\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"endtime\",\"outputs\":[{\"name\":\"\",\"type\":\"uint32\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"kill\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"avgspeed\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"starttime\",\"outputs\":[{\"name\":\"\",\"type\":\"uint32\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"avgaccel\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"type\":\"function\"},{\"inputs\":[{\"name\":\"_kilometers\",\"type\":\"string\"},{\"name\":\"_avgspeed\",\"type\":\"string\"},{\"name\":\"_avgaccel\",\"type\":\"string\"},{\"name\":\"_starttime\",\"type\":\"uint32\"},{\"name\":\"_endtime\",\"type\":\"uint32\"}],\"payable\":false,\"type\":\"constructor\"}]"
 
 // ContractDriveBin is the compiled bytecode used for deploying new contracts.
-const ContractDriveBin = `6060604052341561000c57fe5b604051608080610378833981016040528080519060200190919080519060200190919080519060200190919080519060200190919050505b5b33600060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505b83600060146101000a81548167ffffffffffffffff021916908367ffffffffffffffff160217905550826000601c6101000a81548161ffff021916908361ffff16021790555081600160006101000a81548163ffffffff021916908363ffffffff16021790555080600160049054906101000a900463ffffffff1650505b505050505b61025f806101196000396000f30060606040526000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806321d6dc90146100675780632ca126f8146100a157806341c0e1b5146100d357806348b1ad20146100e55780638da5889714610113575bfe5b341561006f57fe5b610077610145565b604051808267ffffffffffffffff1667ffffffffffffffff16815260200191505060405180910390f35b34156100a957fe5b6100b161015f565b604051808263ffffffff1663ffffffff16815260200191505060405180910390f35b34156100db57fe5b6100e3610175565b005b34156100ed57fe5b6100f5610209565b604051808261ffff1661ffff16815260200191505060405180910390f35b341561011b57fe5b61012361021d565b604051808263ffffffff1663ffffffff16815260200191505060405180910390f35b600060149054906101000a900467ffffffffffffffff1681565b600160049054906101000a900463ffffffff1681565b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16141561020657600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff5b5b565b6000601c9054906101000a900461ffff1681565b600160009054906101000a900463ffffffff16815600a165627a7a723058209ca3a04d021732490733a253b31446c3047b13582f411f5c297198891dd767fa0029`
+const ContractDriveBin = `6060604052341561000c57fe5b60405161074d38038061074d833981016040528080518201919060200180518201919060200180518201919060200180519060200190919080519060200190919050505b5b33600060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505b84600190805190602001906100a992919061011a565b5083600290805190602001906100c092919061011a565b5082600390805190602001906100d792919061011a565b5081600460006101000a81548163ffffffff021916908363ffffffff16021790555080600460049054906101000a900463ffffffff1650505b50505050506101bf565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061015b57805160ff1916838001178555610189565b82800160010185558215610189579182015b8281111561018857825182559160200191906001019061016d565b5b509050610196919061019a565b5090565b6101bc91905b808211156101b85760008160009055506001016101a0565b5090565b90565b61057f806101ce6000396000f30060606040523615610076576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806321d6dc90146100785780632ca126f81461011157806341c0e1b51461014357806348b1ad20146101555780638da58897146101ee578063ed0ad9c514610220575bfe5b341561008057fe5b6100886102b9565b60405180806020018281038252838181518152602001915080519060200190808383600083146100d7575b8051825260208311156100d7576020820191506020810190506020830392506100b3565b505050905090810190601f1680156101035780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b341561011957fe5b610121610357565b604051808263ffffffff1663ffffffff16815260200191505060405180910390f35b341561014b57fe5b61015361036d565b005b341561015d57fe5b610165610401565b60405180806020018281038252838181518152602001915080519060200190808383600083146101b4575b8051825260208311156101b457602082019150602081019050602083039250610190565b505050905090810190601f1680156101e05780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b34156101f657fe5b6101fe61049f565b604051808263ffffffff1663ffffffff16815260200191505060405180910390f35b341561022857fe5b6102306104b5565b604051808060200182810382528381815181526020019150805190602001908083836000831461027f575b80518252602083111561027f5760208201915060208101905060208303925061025b565b505050905090810190601f1680156102ab5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b60018054600181600116156101000203166002900480601f01602080910402602001604051908101604052809291908181526020018280546001816001161561010002031660029004801561034f5780601f106103245761010080835404028352916020019161034f565b820191906000526020600020905b81548152906001019060200180831161033257829003601f168201915b505050505081565b600460049054906101000a900463ffffffff1681565b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614156103fe57600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff5b5b565b60028054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156104975780601f1061046c57610100808354040283529160200191610497565b820191906000526020600020905b81548152906001019060200180831161047a57829003601f168201915b505050505081565b600460009054906101000a900463ffffffff1681565b60038054600181600116156101000203166002900480601f01602080910402602001604051908101604052809291908181526020018280546001816001161561010002031660029004801561054b5780601f106105205761010080835404028352916020019161054b565b820191906000526020600020905b81548152906001019060200180831161052e57829003601f168201915b5050505050815600a165627a7a723058209880ebcdee911274c1800f4e2aa869f837c59521cf6346269b9684e7075318a20029`
 
 // DeployContractDrive deploys a new Ethereum contract, binding an instance of ContractDrive to it.
-func DeployContractDrive(auth *bind.TransactOpts, backend bind.ContractBackend, _kilometers uint64, _avgspeed uint16, _starttime uint32, _endtime uint32) (common.Address, *types.Transaction, *ContractDrive, error) {
+func DeployContractDrive(auth *bind.TransactOpts, backend bind.ContractBackend, _kilometers string, _avgspeed string, _avgaccel string, _starttime uint32, _endtime uint32) (common.Address, *types.Transaction, *ContractDrive, error) {
 	parsed, err := abi.JSON(strings.NewReader(ContractDriveABI))
 	if err != nil {
 		return common.Address{}, nil, nil, err
 	}
-	address, tx, contract, err := bind.DeployContract(auth, parsed, common.FromHex(ContractDriveBin), backend, _kilometers, _avgspeed, _starttime, _endtime)
+	address, tx, contract, err := bind.DeployContract(auth, parsed, common.FromHex(ContractDriveBin), backend, _kilometers, _avgspeed, _avgaccel, _starttime, _endtime)
 	if err != nil {
 		return common.Address{}, nil, nil, err
 	}
@@ -158,12 +158,38 @@ func (_ContractDrive *ContractDriveTransactorRaw) Transact(opts *bind.TransactOp
 	return _ContractDrive.Contract.contract.Transact(opts, method, params...)
 }
 
+// Avgaccel is a free data retrieval call binding the contract method 0xed0ad9c5.
+//
+// Solidity: function avgaccel() constant returns(string)
+func (_ContractDrive *ContractDriveCaller) Avgaccel(opts *bind.CallOpts) (string, error) {
+	var (
+		ret0 = new(string)
+	)
+	out := ret0
+	err := _ContractDrive.contract.Call(opts, out, "avgaccel")
+	return *ret0, err
+}
+
+// Avgaccel is a free data retrieval call binding the contract method 0xed0ad9c5.
+//
+// Solidity: function avgaccel() constant returns(string)
+func (_ContractDrive *ContractDriveSession) Avgaccel() (string, error) {
+	return _ContractDrive.Contract.Avgaccel(&_ContractDrive.CallOpts)
+}
+
+// Avgaccel is a free data retrieval call binding the contract method 0xed0ad9c5.
+//
+// Solidity: function avgaccel() constant returns(string)
+func (_ContractDrive *ContractDriveCallerSession) Avgaccel() (string, error) {
+	return _ContractDrive.Contract.Avgaccel(&_ContractDrive.CallOpts)
+}
+
 // Avgspeed is a free data retrieval call binding the contract method 0x48b1ad20.
 //
-// Solidity: function avgspeed() constant returns(uint16)
-func (_ContractDrive *ContractDriveCaller) Avgspeed(opts *bind.CallOpts) (uint16, error) {
+// Solidity: function avgspeed() constant returns(string)
+func (_ContractDrive *ContractDriveCaller) Avgspeed(opts *bind.CallOpts) (string, error) {
 	var (
-		ret0 = new(uint16)
+		ret0 = new(string)
 	)
 	out := ret0
 	err := _ContractDrive.contract.Call(opts, out, "avgspeed")
@@ -172,15 +198,15 @@ func (_ContractDrive *ContractDriveCaller) Avgspeed(opts *bind.CallOpts) (uint16
 
 // Avgspeed is a free data retrieval call binding the contract method 0x48b1ad20.
 //
-// Solidity: function avgspeed() constant returns(uint16)
-func (_ContractDrive *ContractDriveSession) Avgspeed() (uint16, error) {
+// Solidity: function avgspeed() constant returns(string)
+func (_ContractDrive *ContractDriveSession) Avgspeed() (string, error) {
 	return _ContractDrive.Contract.Avgspeed(&_ContractDrive.CallOpts)
 }
 
 // Avgspeed is a free data retrieval call binding the contract method 0x48b1ad20.
 //
-// Solidity: function avgspeed() constant returns(uint16)
-func (_ContractDrive *ContractDriveCallerSession) Avgspeed() (uint16, error) {
+// Solidity: function avgspeed() constant returns(string)
+func (_ContractDrive *ContractDriveCallerSession) Avgspeed() (string, error) {
 	return _ContractDrive.Contract.Avgspeed(&_ContractDrive.CallOpts)
 }
 
@@ -212,10 +238,10 @@ func (_ContractDrive *ContractDriveCallerSession) Endtime() (uint32, error) {
 
 // Kilometers is a free data retrieval call binding the contract method 0x21d6dc90.
 //
-// Solidity: function kilometers() constant returns(uint64)
-func (_ContractDrive *ContractDriveCaller) Kilometers(opts *bind.CallOpts) (uint64, error) {
+// Solidity: function kilometers() constant returns(string)
+func (_ContractDrive *ContractDriveCaller) Kilometers(opts *bind.CallOpts) (string, error) {
 	var (
-		ret0 = new(uint64)
+		ret0 = new(string)
 	)
 	out := ret0
 	err := _ContractDrive.contract.Call(opts, out, "kilometers")
@@ -224,15 +250,15 @@ func (_ContractDrive *ContractDriveCaller) Kilometers(opts *bind.CallOpts) (uint
 
 // Kilometers is a free data retrieval call binding the contract method 0x21d6dc90.
 //
-// Solidity: function kilometers() constant returns(uint64)
-func (_ContractDrive *ContractDriveSession) Kilometers() (uint64, error) {
+// Solidity: function kilometers() constant returns(string)
+func (_ContractDrive *ContractDriveSession) Kilometers() (string, error) {
 	return _ContractDrive.Contract.Kilometers(&_ContractDrive.CallOpts)
 }
 
 // Kilometers is a free data retrieval call binding the contract method 0x21d6dc90.
 //
-// Solidity: function kilometers() constant returns(uint64)
-func (_ContractDrive *ContractDriveCallerSession) Kilometers() (uint64, error) {
+// Solidity: function kilometers() constant returns(string)
+func (_ContractDrive *ContractDriveCallerSession) Kilometers() (string, error) {
 	return _ContractDrive.Contract.Kilometers(&_ContractDrive.CallOpts)
 }
 

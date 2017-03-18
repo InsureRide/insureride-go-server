@@ -11,17 +11,19 @@ contract mortal {
 
 contract drive is mortal {
 
-    uint64 public kilometers;
-    uint16 public avgspeed;
+    string public kilometers;
+    string public avgspeed;
+    string public avgaccel;
     uint32 public starttime;
     uint32 public endtime;
 
 
 
     /* this runs when the contract is executed */
-    function drive(uint64 _kilometers, uint16 _avgspeed, uint32 _starttime, uint32 _endtime) public {
+    function drive(string _kilometers, string _avgspeed, string _avgaccel, uint32 _starttime, uint32 _endtime) public {
         kilometers = _kilometers;
         avgspeed = _avgspeed;
+        avgaccel = _avgaccel;
         starttime = _starttime;
         endtime - _endtime;
     }
