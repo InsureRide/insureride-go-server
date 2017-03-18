@@ -18,10 +18,11 @@ contract car is mortal {
     string public owneraddress;
     string public vehiclenumber;
 
-
     uint public nodrives;
     address[] public drives;
 
+
+    uint public balance;
 
 
     /* this runs when the contract is executed */
@@ -32,11 +33,17 @@ contract car is mortal {
         owneraddress = _owneraddress;
         vehiclenumber = _vehiclenumber;
         owner = msg.sender;
+
+        balance = 6000000000000000000;
     }
 
     function addDrive(address driveaddress) public {
        if (msg.sender != owner) return;
         drives.push(driveaddress);
         nodrives = drives.length;
+    }
+
+    function payInsurance(uint amount){
+        balance -= amount;
     }
 }

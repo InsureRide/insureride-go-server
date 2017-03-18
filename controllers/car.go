@@ -8,6 +8,8 @@ import (
 	"encoding/json"
 	"github.com/scmo/insureride-go-server/models"
 	"github.com/scmo/insureride-go-server/ethereum"
+	"net/http"
+	"math/big"
 )
 
 // Operations about object
@@ -74,18 +76,41 @@ func (c *CarController) Post() {
 	carObj.ContractAddress = carId
 	car, _ := ethereum.GetCar(&carObj)
 
-	_ = car
+
 	var drive models.Drive
 	json.Unmarshal(c.Ctx.Input.RequestBody, &drive)
 
+	//calculate price
+	er := getExchangeRate()
+	price := calculatePriceInUSD(drive);
+	drive.PriceWei = getWei(price, er)
 	drive, _ = ethereum.AddDrive(drive)
-
 	ethereum.AddDriveToCar(car.ContractAddress, drive.ContractAddress)
 
 	//driveId := models.AddDrive(drive)
 	c.Data["json"] = drive
 	c.ServeJSON()
 }
+
+func getExchangeRate() (models.ExchangeRate) {
+	resp, _ := http.Get("https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=CHF,USD,EUR")
+	er := models.ExchangeRate{}
+
+	json.NewDecoder(resp.Body).Decode(&er)
+	return er
+}
+
+func calculatePriceInUSD(d models.Drive) float64{
+	price := d.Kilometers * 0.001 + d.Avgaccel * 0.008 + d.Avgspeed * 0.002
+	return price
+}
+
+func getWei(price float64, er models.ExchangeRate) *big.Int {
+	wei := price * er.USD;
+	//return uint(wei)
+	return big.NewInt(int64(wei))
+}
+
 
 
 
