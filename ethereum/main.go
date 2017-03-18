@@ -6,11 +6,11 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"strings"
-	"github.com/scmo/starthack/ethereum/smartcontract"
-	"math/big"
-	"github.com/scmo/starthack/models"
 	"github.com/ethereum/go-ethereum/common"
 	"strconv"
+	"math/big"
+	"github.com/scmo/insureride-go-server/ethereum/smartcontract"
+	"github.com/scmo/insureride-go-server/models"
 )
 
 type EthereumController struct {

@@ -1,12 +1,13 @@
 package controllers
 
 import (
-	"github.com/scmo/starthack/models"
 
 	"github.com/astaxie/beego"
-	"github.com/scmo/starthack/ethereum"
+
 	"strconv"
 	"encoding/json"
+	"github.com/scmo/insureride-go-server/models"
+	"github.com/scmo/insureride-go-server/ethereum"
 )
 
 // Operations about object

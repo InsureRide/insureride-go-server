@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"github.com/scmo/starthack/models"
 	"github.com/astaxie/beego"
+	"github.com/scmo/insureride-go-server/models"
 )
 
 // Operations about Users

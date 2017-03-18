@@ -8,9 +8,8 @@
 package routers
 
 import (
-	"github.com/scmo/starthack/controllers"
-
 	"github.com/astaxie/beego"
+	"github.com/scmo/insureride-go-server/controllers"
 )
 
 func init() {
