@@ -9,7 +9,6 @@ import (
 	"github.com/scmo/insureride-go-server/models"
 	"github.com/scmo/insureride-go-server/ethereum"
 	"net/http"
-	"math/big"
 )
 
 // Operations about object
@@ -71,22 +70,19 @@ func (c *CarController) GetDriveByCar() {
 func (c *CarController) Post() {
 
 	carId := c.Ctx.Input.Param(":carId")
-	beego.Info(c.Ctx.Input.RequestBody)
 	carObj := models.Car{}
 	carObj.ContractAddress = carId
 	car, _ := ethereum.GetCar(&carObj)
 
-
+	_ = car
 	var drive models.Drive
 	json.Unmarshal(c.Ctx.Input.RequestBody, &drive)
 
 	//calculate price
-	er := getExchangeRate()
-	price := calculatePriceInUSD(drive);
-	drive.PriceWei = getWei(price, er)
+	drive.PriceInt = calculatePriceInUSD(drive)
 	drive, _ = ethereum.AddDrive(drive)
 	ethereum.AddDriveToCar(car.ContractAddress, drive.ContractAddress)
-
+	ethereum.PayInsurance(car.ContractAddress, drive.PriceInt)
 	//driveId := models.AddDrive(drive)
 	c.Data["json"] = drive
 	c.ServeJSON()
@@ -100,16 +96,13 @@ func getExchangeRate() (models.ExchangeRate) {
 	return er
 }
 
-func calculatePriceInUSD(d models.Drive) float64{
-	price := d.Kilometers * 0.001 + d.Avgaccel * 0.008 + d.Avgspeed * 0.002
-	return price
+func calculatePriceInUSD(d models.Drive) uint16{
+	price := (d.Kilometers * 0.01 + d.Avgaccel * 0.5 + d.Avgspeed* 0.044) * 100
+	return uint16(price)
+	// /price := d.Kilometers * 0.001 + d.Avgaccel * 0.008 + d.Avgspeed * 0.002
+	//return price
 }
 
-func getWei(price float64, er models.ExchangeRate) *big.Int {
-	wei := price * er.USD;
-	//return uint(wei)
-	return big.NewInt(int64(wei))
-}
 
 
 

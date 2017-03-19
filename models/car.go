@@ -1,15 +1,15 @@
 package models
 
-import "math/big"
 
 type Car struct {
 	ContractAddress string
 	Brand           string
 	Model           string
-	Year            uint8
+	Year            uint16
 	Vehiclenumber   string
 	Drives          []*Drive
-	BalanceWei      *big.Int
+	BalanceInt         uint16
+	Balance 	float32
 }
 
 type Drive struct {
@@ -19,5 +19,6 @@ type Drive struct {
 	Avgaccel        float64
 	Starttime       uint32
 	Endtime         uint32
-	PriceWei        *big.Int
+	PriceInt         uint16
+	Price 		float32
 }

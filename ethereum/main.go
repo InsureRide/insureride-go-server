@@ -76,10 +76,10 @@ func GetCar(car *models.Car) (*models.Car, error) {
 	car.Model, err = session.Model()
 	car.Year, err = session.Year()
 	car.Vehiclenumber, err = session.Vehiclenumber()
-	car.BalanceWei, err = session.Balance()
+	car.BalanceInt, err = session.Balance()
+	car.Balance = float32(car.BalanceInt) / 100
 
 	drivescount, _ := session.Nodrives()
-	beego.Debug("Number of drives: ", drivescount)
 
 	bigstr := drivescount.String()
 	numberofdrives, err := strconv.Atoi(bigstr)
@@ -106,16 +106,17 @@ func GetDrive(drive *models.Drive) (*models.Drive, error) {
 	drive.Kilometers, _ = string2Float64(session.Kilometers())
 	drive.Avgaccel, _ = string2Float64(session.Avgaccel())
 	drive.Avgspeed, _ = string2Float64(session.Avgspeed())
-	drive.PriceWei, _ = session.Price()
-
-
+	drive.PriceInt, _ = session.Price()
+	drive.Starttime, _ = session.Starttime()
+	drive.Endtime, _ = session.Endtime()
+	drive.Price = float32(drive.PriceInt) / 100
 	return drive, err
 }
 
 
 // Deploys a drive contract to the blockchain
 func AddDrive(d models.Drive) (models.Drive, error) {
-	address, tx, _, err := smartcontract.DeployContractDrive(ethereumController.Auth, ethereumController.Client, float64ToString(d.Kilometers), float64ToString(d.Avgspeed), float64ToString(d.Avgaccel), d.Starttime, d.Endtime, big.NewInt(0))
+	address, tx, _, err := smartcontract.DeployContractDrive(ethereumController.Auth, ethereumController.Client, float64ToString(d.Kilometers), float64ToString(d.Avgspeed), float64ToString(d.Avgaccel), d.Starttime, d.Endtime, d.PriceInt)
 	if err != nil {
 		beego.Critical("Failed to deploy new token contract: ", err)
 	}
@@ -133,6 +134,20 @@ func AddDriveToCar(carContractAddress string, driveContractAddress string) {
 	session := getContractCarSession(contractcar)
 
 	tx, err := session.AddDrive(common.HexToAddress(driveContractAddress))
+	if (err != nil) {
+		beego.Critical(err)
+	}
+	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
+}
+
+func PayInsurance(carContractAddress string, amount uint16){
+	contractcar, err := smartcontract.NewContractCar(common.HexToAddress(carContractAddress), ethereumController.Client)
+	if err != nil {
+		beego.Critical("Failed to instantiate a Token contract: %v", err)
+	}
+	session := getContractCarSession(contractcar)
+	_ = session
+	tx, err := session.PayInsurance(amount);
 	if (err != nil) {
 		beego.Critical(err)
 	}
